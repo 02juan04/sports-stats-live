@@ -1,10 +1,23 @@
+import fetchLeagues from "@/lib/fetchLeagues";
+import fetchStandings from "@/lib/fetchStandings";
+import {Suspense} from "react"
+import Loading from "./loading";
+import LandingPage from "./landingPage";
+import { LeagueResponse } from "@/types/leagueResponse";
 
-export default function Home() {
+
+export default async function Home() {
+  const filteredLeagues : LeagueResponse[] = await fetchLeagues();
+
+  function handleFetchStandings(leagueID : number, season : number){
+    fetchStandings(leagueID, season);
+  }
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-
-      </main>
+    <div className="border w-full h-full">
+      <Suspense fallback={<Loading/>}>
+        <LandingPage filteredLeagues={filteredLeagues} handleFetchStandings={handleFetchStandings}></LandingPage>
+      </Suspense>
     </div>
   );
 }
