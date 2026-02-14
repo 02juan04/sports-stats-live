@@ -7,15 +7,17 @@ export default async function fetchLeagues(){
         laLiga : 140,
         ligaMX : 262,
         serieA : 135,
-  }
+        championsLeague : 2,
+        mls : 253,
+        brasileirao : 71,
+        eredivisie : 88,
+        saudi : 308,
+    }
 
     function filterRelevantLeagues(response : LeagueResponse){
-    return (
-        response.league.id === leagueIDs.premierLeague ||
-        response.league.id === leagueIDs.laLiga ||
-        response.league.id === leagueIDs.ligaMX ||
-        response.league.id === leagueIDs.serieA
-    )
+        const relevantIds = Object.values(leagueIDs);
+        
+        return relevantIds.includes(response.league.id);
     }
 
     const baseUrl : string = "https://v3.football.api-sports.io/leagues";
@@ -27,7 +29,13 @@ export default async function fetchLeagues(){
         })
 
         const result = await response.json();
-        return result.response.filter(filterRelevantLeagues); //an array of type LeaguePresonse
+
+        const filteredLeagues : LeagueResponse[] = result.response.filter(filterRelevantLeagues); //an array of type LeaguePresonse
+        filteredLeagues.map(item=> item.league.id === leagueIDs.brasileirao ? item.league.name = "Brasileirao" : item.league.name);
+
+        console.log(filteredLeagues);
+        
+        return filteredLeagues;
     }
     catch (error){console.log(error)}
 }
