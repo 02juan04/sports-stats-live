@@ -1,8 +1,11 @@
-export default async function fetchStandings(leagueId : number, season : number){
+import { LeagueResponse } from "@/types/leagueResponse";
 
+export default async function fetchStandings(selectedLeague : LeagueResponse | null, season : number | null){
+
+    console.log(selectedLeague, season);
     const baseUrl : string = "https://v3.football.api-sports.io/standings";
 
-    const userRequest : string = `league=${leagueId}&season=${season}`
+    const userRequest : string = `league=${selectedLeague?.league.id}&season=${season}`
 
     try{
         const response = await fetch(`${baseUrl}?${userRequest}`, {
@@ -12,9 +15,7 @@ export default async function fetchStandings(leagueId : number, season : number)
 
         const result = await response.json();
 
-        console.log(result);
-        console.log("we made it here")
-        return result.response
+        return result.response;
     }
     catch (error){console.log(error)}
 }
