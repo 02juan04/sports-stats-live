@@ -19,6 +19,7 @@
   }
 }
 
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -36,4 +37,23 @@ nav > ul > li:hover{
 }
 nav > ul > li:active{
   color: #969696;
+}
+
+@media (width >= 1250px){
+    .league-name-container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    background-color: #ffffff;
+    opacity: 10%;
+    transition: width 0.4s ease-out;
+  }
+
+  .league-name-container:hover::after {
+    width: 100%;
+  }
+
 }
