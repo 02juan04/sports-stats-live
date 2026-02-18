@@ -15,6 +15,8 @@ import fetchStandings from "@/lib/fetchStandings"
 import { useEffect, useState, Suspense } from "react"
 
 import Loading from "./loading"
+import { EventResponse } from "@/types/eventResponse"
+import fetchEvents from "@/lib/fetchEvents"
 
 
 export default function LandingPage({filteredLeagues, availableSeasons} : {filteredLeagues : LeagueResponse[] | undefined , availableSeasons : AvailableSeasonsResponse}){
@@ -49,6 +51,8 @@ export default function LandingPage({filteredLeagues, availableSeasons} : {filte
 
     },[selectedLeague, selectedSeason])
 
+    fetchEvents(fixtures);
+
 
     function handleSelectLeague(item : LeagueResponse){
         setLeague(item);
@@ -62,7 +66,7 @@ export default function LandingPage({filteredLeagues, availableSeasons} : {filte
 
 
     return(
-        <div className="flex flex-row w-full justify-center">
+        <div className="lg:grid lg:grid-flow-col lg:grid-cols-15">
             <Suspense fallback={<Loading/>}>
                 <DisplayLeagues leagues={filteredLeagues} selectedLeague={selectedLeague} handleSelectedLeague={handleSelectLeague}></DisplayLeagues>
             </Suspense>
