@@ -65,10 +65,10 @@ export default function LeagueStandings({selectedLeague, handleSeasonChange, sta
                                         </div>
                                         {team.team.name}
                                     </div>
-                                    <div className="team-points text-center font-bold text-xl">{team.points}</div>
+                                    <div className="team-points text-center font-bold text-xl text-green-300">{team.points}</div>
                                     <div className="team-points text-center ">{team.all.played}</div>
-                                    <div className="team-points text-center text-green-500 ">{team.all.win}</div>
-                                    <div className="team-points text-center text-red-500 ">{team.all.lose}</div>
+                                    <div className="team-points text-center ">{team.all.win}</div>
+                                    <div className="team-points text-center ">{team.all.lose}</div>
                                     <div className="team-points border-white text-center">{team.all.goals.for}</div>
                                     <div className="border-white text-center">{team.all.goals.against}</div>
                                     <div className="border-white text-center">{team.all.goals.for - team.all.goals.against}</div>
