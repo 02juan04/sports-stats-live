@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
 
 module.exports = {
   images: {
-    remotePatterns: [new URL('https://media.api-sports.io/football/teams/**')],
+    remotePatterns: [new URL('https://media.api-sports.io/football/**')],
   },
 }
 
