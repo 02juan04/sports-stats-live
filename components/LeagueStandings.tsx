@@ -1,4 +1,3 @@
-'use client'
 import { LeagueResponse } from "@/types/leagueResponse"
 import { StandingsResponse } from "@/types/standingsResponse";
 import { Suspense, Fragment } from "react";
@@ -32,10 +31,10 @@ export default function LeagueStandings({selectedLeague, handleSeasonChange, sta
 
     return(
         <Suspense fallback={<Loading/>}>
-            <section className="standings-section-container lg:mt-0 lg:h-full lg:col-span-8 lg:mx-5">
-                <div id="season-selector-div" className="flex justify-center items-center mb-20 text-[1.2rem] xl:text-[2.5rem] tracking-widest gap-3">
+            <section className="standings-section-container lg:mt-0 lg:h-full lg:col-span-8 lg:mx-5 relative">
+                <div id="season-selector-div" className="flex justify-center items-center mb-5 text-[1.2rem] xl:text-[1.6rem] tracking-widest gap-3">
                     <h2>Season</h2>
-                    <select name="seasonSelect" id="seasonSelect" onChange={handleUserSeasonPick} value={selectedSeason} className="text-white">
+                    <select name="seasonSelect" id="seasonSelect" onChange={handleUserSeasonPick} value={selectedSeason} className="text-white w-auto">
                     {
                         availableSeasons?.map((season, index) => (
                             <option key={index} value={season.year}>{season.year}-{season.year+1}</option>
@@ -47,7 +46,7 @@ export default function LeagueStandings({selectedLeague, handleSeasonChange, sta
                     standings?.map((groupStanding, index) => (
                         <Fragment key={index}>
                             <div className="group-name-description text-lg">{groupStanding.at(0)?.group}</div> {/*the idea here is inside current group, grab the group string from the first 'team', and thats the description*/}
-                        <div className="standings h-fit grid grid-flow-row grid-cols-13 mb-10">
+                        <div className="standings h-fit p-10 grid grid-flow-row grid-cols-13 mb-10  bg-gradient-to-tr from-[#440f50]/15 via-[#595656]/30 to-[#440f50]/15 rounded-xl shadow-xl">
                             <div id="standings-header" className="col-span-1 text-center p-2 text-lg tracking-widest">Position</div>
                             <div id="standings-header" className="col-span-5 text-center p-2 text-lg tracking-widest">Team</div>
                             <div id="standings-header" className="col-span-1 text-center p-2 text-lg tracking-widest">Points</div>
@@ -61,7 +60,7 @@ export default function LeagueStandings({selectedLeague, handleSeasonChange, sta
                                 <div className="standings-team-slot col-span-13 grid grid-cols-13 mb-3 p-5 text-lg rounded-xl hover:bg-white/10 hover:text-xl hover:shadow-md duration-150" key={team.team.id}>
                                     <div className="team-points text-center">{team.rank}</div>
                                     <div className="team-points col-span-5 text-center relative">
-                                        <div className="team-logo-standings absolute -z-1 left-14 w-10 h-10 bottom-0">
+                                        <div className="team-logo-standings absolute -z-1 left-10 w-10 h-10 bottom-0">
                                             <Image className="opacity-45 lg:opacity-100 lg:absolute lg:block object-contain" src={team.team.logo} alt={`${team.team.logo}logo`} fill></Image>
                                         </div>
                                         {team.team.name}

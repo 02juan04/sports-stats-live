@@ -20,17 +20,20 @@ export default function DisplayMatches({league, fixtures} : props){
     
 
 return (
-    <div id="matchesContainer" className="lg:flex lg:flex-col lg:items-center lg:col-span-4">
+    <div id="matches-section" className="lg:flex lg:flex-col lg:items-center lg:col-span-4">
         <h2 className="text-center text-[35px] tracking-wide mb-20">
         {league?.league.name} Matches
         </h2>
+        <div id="match-cards-container" className="backdrop-blur-xl rounded-lg w-full overflow-y-auto h-380">
+
+
 
         {fixtures?.map((item, index) => {
             
             const live = isInPlay(item);
 
         return (
-            <div key={index} className={`match-card w-full flex relative flex-col items-center rounded-xl pb-5 border-white/65 z-5 lg:hover:bg-white/5 lg:hover:shadow-lg ${live ? "text-green-400" : ""}`}>
+            <div key={index} className={`match-card w-full flex relative flex-col items-center rounded-xl shadow-lg pb-5 mb-3 z-1 lg:hover:bg-gradient-to-br lg:hover:from-red-500/25 lg:hover:to-white/15 lg:hover:duration-200 lg:hover:shadow-lg ${live ? "text-green-400" : ""}`}>
                 <div className="m-auto pt-4">{item.fixture.date.split("T").at(0)}</div>
                 <div className="match-card-header flex justify-between pl-5 pr-5 pb-0 w-full tracking-widest">
                     <div className="match-status text-sm text-center inline">{item.fixture.status.long}</div>
@@ -67,7 +70,8 @@ return (
                 </div>
             </div>
             );
-            })}
+        })}
+        </div>
     </div>
     );
-    }
+}
