@@ -11,7 +11,7 @@ export default async function fetchLeagues(){
         mls : 253,
         brasileirao : 71,
         eredivisie : 88,
-        saudi : 308,
+        saudi : 307,
     }
 
     function filterRelevantLeagues(response : LeagueResponse){
