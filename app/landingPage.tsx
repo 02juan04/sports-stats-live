@@ -21,7 +21,7 @@ import fetchEvents from "@/lib/fetchEvents"
 
 export default function LandingPage({filteredLeagues, availableSeasons} : {filteredLeagues : LeagueResponse[] | undefined , availableSeasons : AvailableSeasonsResponse}){
     const [selectedLeague, setLeague] = useState<LeagueResponse | null>(null);
-    const [selectedSeason, setSeason] = useState<number | null>(2024);
+    const [selectedSeason, setSeason] = useState<number>(2025);
     const [standingsResponse, setStandingResponse] = useState<StandingsResponse[] | null>(null);
     const [fixtures, setFixtures] = useState<FixtureResponse[] | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
@@ -29,9 +29,7 @@ export default function LandingPage({filteredLeagues, availableSeasons} : {filte
 
     useEffect(() => {
         //if we dont have both states, return
-        console.log("We dont have selectedLeague and season selected")
         if(!selectedLeague || !selectedSeason) return;
-        console.log("we have both season and league selected");
 
 
         async function getStandings(selectedLeague : LeagueResponse, selectedSeason : number){
@@ -59,21 +57,25 @@ export default function LandingPage({filteredLeagues, availableSeasons} : {filte
     }
     
     function handleSelectedSeason(year : number){
-        console.log("season was changed");
         setSeason(year);
     }
 
 
 
     return(
-        <div className="lg:grid lg:grid-flow-col lg:grid-cols-15">
+        <div className={`${selectedLeague ? 'lg:grid lg:grid-flow-col lg:grid-cols-15' : 'flex justify-center'}`}>
             <Suspense fallback={<Loading/>}>
                 <DisplayLeagues leagues={filteredLeagues} selectedLeague={selectedLeague} handleSelectedLeague={handleSelectLeague}></DisplayLeagues>
             </Suspense>
-            <Suspense fallback={<Loading/>}>
-                <LeagueStandings selectedSeason={selectedSeason} handleSeasonChange={handleSelectedSeason} standingsResponse={standingsResponse} availableSeasons={availableSeasons} selectedLeague={selectedLeague}></LeagueStandings>
-            </Suspense>
-            <DisplayMatches league={selectedLeague} fixtures={fixtures}></DisplayMatches>
+
+            { selectedLeague &&
+            <>
+                <Suspense fallback={<Loading/>}>
+                    <LeagueStandings selectedSeason={selectedSeason} handleSeasonChange={handleSelectedSeason} standingsResponse={standingsResponse} availableSeasons={availableSeasons} selectedLeague={selectedLeague}></LeagueStandings>
+                    <DisplayMatches league={selectedLeague} fixtures={fixtures}></DisplayMatches>
+                </Suspense>
+            </>
+                }
         </div>
     )
     
