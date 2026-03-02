@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+    --background:#ebeaea;
   --main-text-color : #333333;
   --dashboard-card-color : #F9F6EE;
   --main-information : black;
@@ -17,8 +17,11 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background:#ebeaea;
-    /* #4d4b4b #0a0a0a 3c11a8 5f616f(gray)*/
+  --background:#1b1c2f;
+  --main-text-color : #dbc9c9;
+  --dashboard-card-color : #323042;
+  --main-information : rgb(255, 250, 250);
+  --secondary-information : rgb(178, 177, 177);
   }
 }
 
@@ -44,10 +47,6 @@ body {
 
 .secondary-title{
   color: var(--secondary-information);
-}
-
-h1, h2, h3{
-  color: var(--header-color);
 }
 
 

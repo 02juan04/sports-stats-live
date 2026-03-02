@@ -32,13 +32,13 @@ export default function LeagueStandings({selectedLeague, handleSeasonChange, sta
     return(
         <Suspense fallback={<Loading/>}>
             <section className="standings-section-container lg:mt-0 lg:h-full lg:col-span-8 lg:mx-5 relative">
-                <header id="season-section-header" className="dashboard-card shadow-md text-center m-auto py-3 px-5 rounded-lg mb-5 text-[1.2rem] xl:text-[1.6rem] tracking-wider gap-3">
-                    <h2>Standings</h2>
+                <header id="season-section-header" className="dashboard-card shadow-md text-center m-auto py-3 px-5 rounded-xl mb-5 text-[1.2rem] xl:text-[2rem] tracking-wider gap-3">
+                    <h2 className="main-title">Standings</h2>
                 </header>
                 {
                     standings?.map((groupStanding, index) => (
                         <Fragment key={index}>
-                            <div className="group-name-description text-lg flex dashboard-card w-fit ml-auto rounded-t py-2 px-4">Select Season:
+                            <div className="group-name-description text-lg flex dashboard-card w-fit ml-auto rounded-t py-2 px-4 secondary-title">Select Season:
                                 <div className="text-lg">
                                 <select name="seasonSelect" id="seasonSelect" onChange={handleUserSeasonPick} value={selectedSeason} className="w-auto outline rounded p-1 ml-2">
                                 {
@@ -48,8 +48,8 @@ export default function LeagueStandings({selectedLeague, handleSeasonChange, sta
                                 </select>
                             </div>    
                             </div> {/*the idea here is inside current group, grab the group string from the first 'team', and thats the description*/}
-                            <div className="standings dashboard-card h-fit p-10 grid grid-flow-row grid-cols-13 mb-10  rounded-md rounded-tr-none shadow-xl">
-                                <h1 className="col-span-13 secondary-information">{groupStanding.at(0)?.group}</h1>
+                            <div className="standings dashboard-card h-fit p-10 grid grid-flow-row grid-cols-13 mb-10  rounded-xl rounded-tr-none shadow-xl">
+                                <h1 className="col-span-13 secondary-title text-xl">{groupStanding.at(0)?.group}</h1>
                                 <div id="standings-header" className="col-span-1 text-center p-2 text-lg tracking-widest main-title">Position</div>
                                 <div id="standings-header" className="col-span-5 text-center p-2 text-lg tracking-widest main-title">Team</div>
                                 <div id="standings-header" className="col-span-1 text-center p-2 text-lg tracking-widest main-title">Pts</div>
