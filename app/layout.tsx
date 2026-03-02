@@ -1,17 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Arimo } from "next/font/google";
 import "./globals.css";
 import Nav from '../components/nav'
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const arimo = Arimo({
+  subsets : ["latin"]
+})
 
 export const metadata: Metadata = {
   title: "Football Hub",
@@ -26,9 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${arimo.className} antialiased`}
       >
-        <Nav/>
+        <h1 className="text-[4em] my-5 tracking-wide">Football Stats Live</h1>
         {children}
       </body>
     </html>

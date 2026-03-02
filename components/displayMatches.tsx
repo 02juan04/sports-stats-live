@@ -21,7 +21,7 @@ export default function DisplayMatches({league, fixtures} : props){
 
 return (
     <div id="matches-section" className="lg:flex lg:flex-col lg:items-center lg:col-span-4">
-        <h2 className="text-center text-[35px] tracking-wide mb-20">
+        <h2 className="dashboard-card shadow-md mb-20  w-full text-center py-3 px-5 rounded-lg text-[1.2rem] xl:text-[1.6rem] tracking-wider gap-3">
         {league?.league.name} Matches
         </h2>
         <div id="match-cards-container" className="backdrop-blur-xl rounded-lg w-full overflow-y-auto h-380">
@@ -33,15 +33,17 @@ return (
             const live = isInPlay(item);
 
         return (
-            <div key={index} className={`match-card w-full flex relative flex-col items-center rounded-xl shadow-lg pb-5 mb-3 z-1 hover:bg-gradient-to-tr hover:from-[#440f50]/15 hover:via-[#595656]/30 hover:to-[#440f50]/15 transition duration-150 ${live ? "text-green-400" : ""}`}>
-                <div className="m-auto pt-4">{item.fixture.date.split("T").at(0)}</div>
-                <div className="match-card-header flex justify-between pl-5 pr-5 pb-0 w-full tracking-widest">
-                    <div className="match-status text-sm text-center inline">{item.fixture.status.long}</div>
-                    <div className="match-time p-1 text-center">{item.fixture.status.elapsed}{item.fixture.status.extra
-                        ? <span>+{item.fixture.status.extra}&apos;</span> : "'"}
+            <div key={index} className={`match-card dashboard-card w-full flex relative flex-col items-center rounded-xl shadow-lg pb-5 mb-3 z-1 hover:bg-gradient-to-tr hover:from-[#440f50]/15 hover:via-[#595656]/30 hover:to-[#440f50]/15 transition duration-150 ${live ? "text-green-400" : ""}`}>
+                <div className="match-card-header flex flex-col pl-5 pr-5 pb-0 w-full tracking-widest secondary-title">
+                    <div className="m-auto pt-4">{item.fixture.date.split("T").at(0)}</div>
+                    <div className="flex justify-between">
+                        <div className="match-status text-sm text-center inline">{item.fixture.status.long}</div>
+                        <div className="match-time p-1 text-center">{item.fixture.status.elapsed}{item.fixture.status.extra
+                                ? <span>+{item.fixture.status.extra}&apos;</span> : "'"}
+                        </div>
                     </div>
                 </div>
-                <div className="match-card-team-section tracking-widest text-lg w-full p-5 pt-0 relative">
+                <div className="match-card-team-section tracking-widest text-lg w-full p-5 pt-0 relative main-title">
                     <div className="team-logo-container absolute left-10 lg:left-6 2xl:left-25 xl:left-15 -z-1 md:left-50 sm:left-40 w-20 h-20">
                     <Image
                         src={item.teams.home.logo}
