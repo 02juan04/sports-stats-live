@@ -60,7 +60,7 @@ export default function LeagueStandings({selectedLeague, handleSeasonChange, sta
                                 <div id="standings-header" className="col-span-1 text-center p-2 text-lg tracking-widest secondary-title">G-</div>
                                 <div id="standings-header" className="col-span-1 text-center p-2 text-lg tracking-widest secondary-title">G+/-</div>
                                 {groupStanding.map((team) => (
-                                    <div className="standings-team-slot col-span-13 grid grid-cols-13 mb-3 p-5 text-lg rounded-xl hover:scale-105 hover:shadow duration-150" key={team.team.id}>
+                                    <div className="standings-team-slot col-span-13 grid grid-cols-13 mb-3 p-5 text-lg rounded-xl hover:scale-105 hover:shadow hover:bg-black/5 duration-150" key={team.team.id}>
                                         <div className="team-points text-center main-title">{team.rank}</div>
                                         <div className="team-points col-span-5 text-center relative main-title">
                                             <div className="team-logo-standings absolute left-10 w-10 h-10 bottom-0">

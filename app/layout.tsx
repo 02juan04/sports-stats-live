@@ -22,7 +22,7 @@ export default function RootLayout({
       <body
         className={`${arimo.className} antialiased`}
       >
-        <h1 className="text-[4em] my-5 tracking-wide">Football Stats Live</h1>
+        <h1 className="text-[4em] my-5 tracking-wide font-bold">Football Stats Live</h1>
         {children}
       </body>
     </html>
