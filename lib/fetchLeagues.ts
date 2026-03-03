@@ -35,6 +35,9 @@ export default async function fetchLeagues(){
                 response.league.name = "Saudi League"
                 break;
             }
+        if(response.country.name === "World"){
+            response.country.name = "International"
+        }
     }
 
     const baseUrl : string = "https://v3.football.api-sports.io/leagues";
@@ -48,11 +51,12 @@ export default async function fetchLeagues(){
         const result = await response.json();
 
         const filteredLeagues : LeagueResponse[] = result.response.filter(filterRelevantLeagues); //an array of type LeaguePresonse
-        filteredLeagues.map(item=> (changeToBetterNames(item)));
+        filteredLeagues.forEach(item=> (changeToBetterNames(item)));
 
         console.log(filteredLeagues);
         
         return filteredLeagues;
+        // return filteredLeagues.sort((a,b) => a.country.name.localeCompare(b.country.name));
     }
     catch (error){console.log(error)}
 }
