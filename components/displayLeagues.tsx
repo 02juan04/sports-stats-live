@@ -32,8 +32,8 @@ export default  function DisplayLeagues({ leagues, selectedLeague, handleSelecte
                 {selectedLeague ? 'Leagues' : 'Select a League'}
             </h2>
             {
-                groupedleagues.map(item => (
-                    <>
+                groupedleagues.map((item, index) => (
+                    <Fragment key={index}>
                         <div className="secondary-title">{item.country}</div>
                         {
                            item.leagues?.map(item => (
@@ -41,7 +41,7 @@ export default  function DisplayLeagues({ leagues, selectedLeague, handleSelecte
                                 <div
                                     className={`league-card selectable dashboard-card bg-[var(--dashboard-card-color)] my-3
                                         text-center p-5 relative cursor-pointer tracking-wider shadow-lg rounded-lg  duration-150
-                                        ${selectedLeague?.league.id === item.league.id ? "ring ring-green-500 scale-105 bg-gray-500" : "hover:scale-105 hover:bg-gray-700"}`}
+                                        ${selectedLeague?.league.id === item.league.id ? "ring ring-indigo-600 scale-105 bg-gray-600" : "hover:scale-105 hover:bg-gray-700"}`}
                                         onClick={() => {handleSelectedLeague(item);}}>
                                 <div className={`absolute w-10 h-10 ${selectedLeague ? ''  : 'left-10'}`}>
                                     <Image src={item.league.logo} alt={`${item.league.name} logo`} fill className="object-contain"></Image>
@@ -51,7 +51,7 @@ export default  function DisplayLeagues({ leagues, selectedLeague, handleSelecte
                             </Fragment>
                            ))
                         }
-                    </>
+                    </Fragment>
                 ))
 
 
