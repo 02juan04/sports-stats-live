@@ -7,7 +7,7 @@ import Image from "next/image";
 
 
 interface props{
-    selectedSeason : number,
+    selectedSeason : number | undefined,
     handleSeasonChange : (season: number) => void,
     standingsResponse : StandingsResponse[] | null,
     availableSeasons : AvailableSeasonsResponse,
@@ -32,8 +32,8 @@ export default function LeagueStandings({selectedLeague, handleSeasonChange, sta
     return(
         <Suspense fallback={<Loading/>}>
             <section className="standings-section-container lg:mt-0 lg:h-full lg:col-span-8 lg:mx-5 relative">
-                <header id="season-section-header" className="dashboard-card shadow-md text-center m-auto py-3 px-5 rounded-xl mb-5 text-[1.2rem] xl:text-[2rem] tracking-wider gap-3">
-                    <h2 className="main-title">Standings</h2>
+                <header id="season-section-header" className="bg-[var(--dashboard-card-headers)] shadow-md text-center m-auto py-3 px-5 rounded-xl mb-5 text-[1.2rem] xl:text-[2rem] tracking-wider gap-3">
+                    <h2 className="main-title">{selectedLeague?.league.name} Standings</h2>
                 </header>
                 {
                     standings?.map((groupStanding, index) => (
@@ -60,7 +60,7 @@ export default function LeagueStandings({selectedLeague, handleSeasonChange, sta
                                 <div id="standings-header" className="col-span-1 text-center p-2 text-lg tracking-widest secondary-title">G-</div>
                                 <div id="standings-header" className="col-span-1 text-center p-2 text-lg tracking-widest secondary-title">G+/-</div>
                                 {groupStanding.map((team) => (
-                                    <div className="standings-team-slot selectable col-span-13 grid grid-cols-13 mb-3 p-5 text-lg rounded-xl hover:scale-105 hover:shadow hover:bg-black/5 duration-150" key={team.team.id}>
+                                    <div className="standings-team-slot selectable col-span-13 grid grid-cols-13 mb-3 p-5 text-lg rounded-xl hover:scale-105 hover:shadow hover:bg-black/20 duration-150" key={team.team.id}>
                                         <div className="team-points text-center main-title">{team.rank}</div>
                                         <div className="team-points col-span-5 text-center relative main-title">
                                             <div className="team-logo-standings absolute left-10 w-10 h-10 bottom-0">

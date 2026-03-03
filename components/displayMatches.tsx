@@ -21,7 +21,7 @@ export default function DisplayMatches({league, fixtures} : props){
 
 return (
     <div id="matches-section" className="lg:flex lg:flex-col lg:items-center lg:col-span-4">
-        <h2 className="dashboard-card shadow-md mb-20  w-full text-center py-3 px-5 rounded-lg text-[1.2rem] xl:text-[1.8rem] tracking-wider gap-3 main-title">
+        <h2 id="matches-section-header" className="bg-[var(--dashboard-card-headers)] shadow-md mb-20  w-full text-center py-3 px-5 rounded-lg text-[1.2rem] xl:text-[1.8rem] tracking-wider gap-3 main-title">
         {league?.league.name} Matches
         </h2>
         <div id="match-cards-container" className="rounded-lg w-full h-380">
@@ -33,7 +33,7 @@ return (
             const live = isInPlay(item);
 
         return (
-            <div key={index} className={`match-card bg-[var(--dashboard-card-color)] dashboard-card selectable w-full flex relative flex-col items-center rounded-xl shadow-lg pb-5 mb-3 z-1 hover:scale-105 duration-150 ${live ? "text-green-400" : ""}`}>
+            <div key={index} className={`match-card bg-[var(--dashboard-card-color)] dashboard-card selectable w-full flex relative flex-col items-center rounded-xl shadow-lg pb-5 mb-3 z-1 hover:scale-103 hover:bg-gray-700 duration-200 ${live ? "text-green-400" : ""}`}>
                 <div className="match-card-header flex flex-col pl-5 pr-5 pb-0 w-full tracking-widest secondary-title">
                     <div className="m-auto pt-4">{item.fixture.date.split("T").at(0)}</div>
                     <div className="flex justify-between">
