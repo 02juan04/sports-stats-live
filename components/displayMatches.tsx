@@ -21,7 +21,7 @@ export default function DisplayMatches({league, fixtures} : props){
 
 return (
     <div id="matches-section" className="lg:flex lg:flex-col lg:items-center lg:col-span-4">
-        <h2 id="matches-section-header" className="bg-[var(--dashboard-card-headers)] shadow-md mb-20  w-full text-center py-3 px-5 rounded-lg text-[1.2rem] xl:text-[1.8rem] tracking-wider gap-3 main-title">
+        <h2 id="matches-section-header" className=" mt-20 lg:mt-0 bg-[var(--dashboard-card-headers)] shadow-md mb-10 lg:mb-20  w-full text-center py-3 px-5 rounded-lg text-[1.2rem] xl:text-[1.8rem] tracking-wider gap-3 main-title">
         {league?.league.name} Matches
         </h2>
         <div id="match-cards-container" className="rounded-lg w-full h-380">

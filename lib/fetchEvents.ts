@@ -6,7 +6,7 @@ export default  function fetchEvents(fixtures : FixtureResponse[] | null){
 
     const fixtureIDs = fixtures?.map(item => item.fixture.id);
 
-    fixtureIDs?.forEach(item => console.log(item));
+    // fixtureIDs?.forEach(item => console.log(item));
 
     // try{
     //     const response = await fetch(`${baseUrl}?fixture=`, {
