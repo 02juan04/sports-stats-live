@@ -15,18 +15,18 @@ import fetchStandings from "@/lib/fetchStandings"
 import { useEffect, useState, Suspense } from "react"
 
 import Loading from "./loading"
-import { EventResponse } from "@/types/eventResponse"
-import fetchEvents from "@/lib/fetchEvents"
+// import { EventResponse } from "@/types/eventResponse"
+// import fetchEvents from "@/lib/fetchEvents"
 
 
 export default function LandingPage({filteredLeagues, availableSeasons} : {filteredLeagues : LeagueResponse[] | undefined , availableSeasons : AvailableSeasonsResponse}){
     const [selectedLeague, setLeague] = useState<LeagueResponse | null>(null);
-    const [selectedSeason, setSeason] = useState<number>(2025);
+    const [selectedSeason, setSeason] = useState<number>();
     const [standingsResponse, setStandingResponse] = useState<StandingsResponse[] | null>(null);
     const [fixtures, setFixtures] = useState<FixtureResponse[] | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
-
+    
     useEffect(() => {
         //if we dont have both states, return
         if(!selectedLeague || !selectedSeason) return;
@@ -49,10 +49,12 @@ export default function LandingPage({filteredLeagues, availableSeasons} : {filte
 
     },[selectedLeague, selectedSeason])
 
-    fetchEvents(fixtures);
+    // fetchEvents(fixtures);
 
 
     function handleSelectLeague(item : LeagueResponse){
+        item.seasons.forEach(season => season.current ? setSeason(season.year) : item);
+
         setLeague(item);
     }
     
@@ -70,10 +72,8 @@ export default function LandingPage({filteredLeagues, availableSeasons} : {filte
 
             { selectedLeague &&
             <>
-                <Suspense fallback={<Loading/>}>
                     <LeagueStandings selectedSeason={selectedSeason} handleSeasonChange={handleSelectedSeason} standingsResponse={standingsResponse} availableSeasons={availableSeasons} selectedLeague={selectedLeague}></LeagueStandings>
                     <DisplayMatches league={selectedLeague} fixtures={fixtures}></DisplayMatches>
-                </Suspense>
             </>
                 }
         </div>
