@@ -26,7 +26,7 @@ export default async function fetchLeagues(){
     function changeToBetterNames(response : LeagueResponse){
         switch(response.league.id){
             case leagueIDs.scotland_prem:
-                response.league.name = "Scotland Premiership"
+                response.league.name = "Scottish Premiership"
                 break;
             case leagueIDs.brasileirao : 
                 response.league.name = "Brasileirao"

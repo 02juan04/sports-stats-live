@@ -1,5 +1,7 @@
 import { LeagueResponse } from "@/types/leagueResponse"
+import { countReset } from "console";
 import Image from "next/image"
+import { Fragment } from "react/jsx-runtime";
 
 interface props{
     leagues : LeagueResponse[] | undefined, 
@@ -9,13 +11,19 @@ interface props{
 
 export default  function DisplayLeagues({ leagues, selectedLeague, handleSelectedLeague } : props){
 
+    const countries : Array<string>= [];
+    leagues?.forEach(item => countries.includes(item.country.name) ? item : countries.push(item.country.name));
+    countries.sort();
+
     return (
-        <div className={`${selectedLeague ? 'lg:h-full lg:col-span-3' : 'w-1/5'}`}>
+        <div id="leagues-section" className={`${selectedLeague ? 'lg:h-full lg:col-span-3' : 'w-1/5'}`}>
             <h2 id="leagues-section-header" className="dashboard-card shadow-md mb-20  w-full text-center py-3 px-5 rounded-lg text-[1.2rem] xl:text-[1.8rem] tracking-wider gap-3 main-title">{selectedLeague ? 'Leagues' : 'Select a League'}</h2>
             {
                 leagues?.map((item : LeagueResponse) => 
                 (
-                    <div className={`league-card dashboard-card my-3 text-center p-5 relative cursor-pointer tracking-wider shadow-lg rounded-lg hover:scale-105 duration-150 ${selectedLeague?.league.id === item.league.id ? "text-green-500" : "league-not-selected"}`} key={item.league.id} onClick={() => {
+                    <Fragment key={item.league.id}>
+                    <div>{item.country.name}</div>
+                    <div tabIndex={0} className={`league-card selectable dashboard-card bg-[var(--dashboard-card-color)] my-3 text-center p-5 relative cursor-pointer tracking-wider shadow-lg rounded-lg hover:scale-105 duration-150 ${selectedLeague?.league.id === item.league.id ? "ring ring-green-500 scale-105 bg-gray-500" : "league-not-selected"}`}  onClick={() => {
                         handleSelectedLeague(item);
                     }}>
                         <div className={`absolute w-10 h-10`}>
@@ -23,7 +31,8 @@ export default  function DisplayLeagues({ leagues, selectedLeague, handleSelecte
                         </div>
                         <h3 className="text-xl main-title">{item.league.name}</h3>
                     </div>
-                )
+                    </Fragment>
+                    )
                 )
             }
         </div>

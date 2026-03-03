@@ -33,7 +33,7 @@ return (
             const live = isInPlay(item);
 
         return (
-            <div key={index} className={`match-card dashboard-card w-full flex relative flex-col items-center rounded-xl shadow-lg pb-5 mb-3 z-1 hover:scale-105 duration-150 ${live ? "text-green-400" : ""}`}>
+            <div key={index} className={`match-card bg-[var(--dashboard-card-color)] dashboard-card selectable w-full flex relative flex-col items-center rounded-xl shadow-lg pb-5 mb-3 z-1 hover:scale-105 duration-150 ${live ? "text-green-400" : ""}`}>
                 <div className="match-card-header flex flex-col pl-5 pr-5 pb-0 w-full tracking-widest secondary-title">
                     <div className="m-auto pt-4">{item.fixture.date.split("T").at(0)}</div>
                     <div className="flex justify-between">

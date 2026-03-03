@@ -6,6 +6,7 @@
   --dashboard-card-color : #F9F6EE;
   --main-information : black;
   --secondary-information : rgb(123, 123, 123);
+  --selectable-hover-color : rgb(219, 219, 222);;
 }
 
 /* @theme inline {
@@ -17,11 +18,14 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
+  /* --background:#19191a;
+  --dashboard-card-color : #2e2e31; */
   --background:#1b1c2f;
+  --dashboard-card-color : #343246;
   --main-text-color : #dbc9c9;
-  --dashboard-card-color : #323042;
   --main-information : rgb(255, 250, 250);
   --secondary-information : rgb(178, 177, 177);
+  --selectable-hover-color : rgb(90, 108, 129);
   }
 }
 
@@ -32,13 +36,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
-}
-
-
-.dashboard-card{
-  background: var(--dashboard-card-color);
+  box-shadow: none;
 }
 
 .main-title{
@@ -55,10 +55,6 @@ nav > ul > li:hover{
 }
 nav > ul > li:active{
   color: #969696;
-}
-
-p{
-  color: var(--main-text-color);
 }
 
 /* @media (width >= 1250px){
