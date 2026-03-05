@@ -8,15 +8,31 @@ interface props{
 }
 export default function DisplayMatches({league, fixtures} : props){
 
+    fixtures?.sort((a,b) => b.fixture.date.localeCompare(a.fixture.date));
+
     const inPlay = ["HT", "1H", "2H", "ET", "BT", "P", "SUSP", "INT", "LIVE"];
+    const scheduled = ["TBD", "NS"];
+    const finished = ["FT", "AET", "PEN"];
+
+    function isScheduled(item : FixtureResponse) : boolean{
+        return scheduled.includes(item.fixture.status.short);
+    }
 
     function isInPlay(item : FixtureResponse) : boolean{
         return inPlay.includes(item.fixture.status.short);
     }
 
+    function matchFinished(item : FixtureResponse) : boolean{
+        return finished.includes(item.fixture.status.short);
+    }
+
+
+
     const dates : Array<string> = [];
 
     fixtures?.forEach(item => !dates.includes(item.fixture.date) ? dates.push(item.fixture.date) : item)
+
+    console.log(dates);
     
 
 return (

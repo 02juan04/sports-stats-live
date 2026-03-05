@@ -9,7 +9,7 @@ import { StandingsResponse } from "@/types/standingsResponse"
 import { AvailableSeasonsResponse } from "@/types/leagues-Seasons-Response"
 import { FixtureResponse } from "@/types/fixturesResponse"
 
-import fetchFixtures from "@/lib/fetchFixtures"
+import fetchLastFixtures from "@/lib/fetchFixtures"
 import fetchStandings from "@/lib/fetchStandings"
 
 import { useEffect, useState, Suspense } from "react"
@@ -41,7 +41,7 @@ export default function LandingPage({filteredLeagues, availableSeasons} : {filte
         getStandings(selectedLeague, selectedSeason);
 
         async function getFixtures(selectedLeague : LeagueResponse, selectedSeason : number){
-            const fixtureResponse : FixtureResponse[] = await fetchFixtures(selectedLeague, selectedSeason);
+            const fixtureResponse : FixtureResponse[] = await fetchLastFixtures(selectedLeague, selectedSeason);
             setFixtures(fixtureResponse);
         }
         

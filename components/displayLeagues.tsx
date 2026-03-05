@@ -1,5 +1,4 @@
 import { LeagueResponse } from "@/types/leagueResponse"
-import { countReset } from "console";
 import Image from "next/image"
 import { Fragment } from "react/jsx-runtime";
 
