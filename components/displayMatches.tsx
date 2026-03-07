@@ -1,15 +1,12 @@
 import { LeagueResponse } from "@/types/leagueResponse";
 import { FixtureResponse } from "@/types/fixturesResponse";
 import Image from "next/image";
-
+import { useEffect, useState } from "react";
 interface props{
     league : LeagueResponse | null,
     fixtures : FixtureResponse[] | null,
 }
 export default function DisplayMatches({league, fixtures} : props){
-
-    fixtures?.sort((a,b) => b.fixture.date.localeCompare(a.fixture.date));
-
     const inPlay = ["HT", "1H", "2H", "ET", "BT", "P", "SUSP", "INT", "LIVE"];
     const scheduled = ["TBD", "NS"];
     const finished = ["FT", "AET", "PEN"];
@@ -22,34 +19,51 @@ export default function DisplayMatches({league, fixtures} : props){
         return inPlay.includes(item.fixture.status.short);
     }
 
-    function matchFinished(item : FixtureResponse) : boolean{
+    function isFinished(item : FixtureResponse) : boolean{
         return finished.includes(item.fixture.status.short);
     }
 
+    interface MatchStatus{
+        scheduled : FixtureResponse[],
+        inPlay : FixtureResponse[],
+        finished : FixtureResponse[]
+    }
 
+    const sortedFixtures = fixtures?.sort((a,b) => a.fixture.date.localeCompare(b.fixture.date));
+    console.log(sortedFixtures);
 
-    const dates : Array<string> = [];
+    const matches = sortedFixtures?.reduce<MatchStatus>((acc, curr) => {
 
-    fixtures?.forEach(item => !dates.includes(item.fixture.date) ? dates.push(item.fixture.date) : item)
+        if (isScheduled(curr)) acc.scheduled.push(curr);
+        if (isInPlay(curr)) acc.inPlay.push(curr);
+        if (isFinished(curr)) acc.finished.push(curr);
 
-    console.log(dates);
+        return acc;
+    }, {
+        scheduled : [],
+        inPlay : [],
+        finished : []
+    });   
     
+    const [matchStatus, setMatchStatus] = useState<"scheduled" | "inPlay" | "finished">("scheduled");
+
+
 
 return (
     <div id="matches-section" className="lg:flex lg:flex-col lg:items-center lg:col-span-4">
         <h2 id="matches-section-header" className=" mt-20 lg:mt-0 bg-[var(--dashboard-card-headers)] shadow-md mb-10 lg:mb-20  w-full text-center py-3 px-5 rounded-lg text-[1.2rem] xl:text-[1.8rem] tracking-wider gap-3 main-title">
         {league?.league.name} Matches
         </h2>
+
+        <button type="button" onClick={() => setMatchStatus("finished")}>Past Matches</button>
+        <button type="button" onClick={() => setMatchStatus("scheduled")}>Upcoming Matches</button>
+        <button type="button" onClick={() => setMatchStatus("inPlay")}>Live Matches</button>
+
         <div id="match-cards-container" className="rounded-lg w-full h-380">
-
-
-
-        {fixtures?.map((item, index) => {
+        {matches?.[matchStatus].map((item, index) => {
             
-            const live = isInPlay(item);
-
         return (
-            <div key={index} className={`match-card bg-[var(--dashboard-card-color)] dashboard-card selectable w-full flex relative flex-col items-center rounded-xl shadow-lg pb-5 mb-3 z-1 hover:scale-103 hover:bg-gray-700 duration-200 ${live ? "text-green-400" : ""}`}>
+            <div key={index} className={`match-card bg-[var(--dashboard-card-color)] dashboard-card selectable w-full flex relative flex-col items-center rounded-xl shadow-lg pb-5 mb-3 z-1 hover:scale-103 hover:bg-gray-700 duration-200 "text-green-400" : ""}`}>
                 <div className="match-card-header flex flex-col pl-5 pr-5 pb-0 w-full tracking-widest secondary-title">
                     <div className="m-auto pt-4">{item.fixture.date.split("T").at(0)}</div>
                     <div className="flex justify-between">

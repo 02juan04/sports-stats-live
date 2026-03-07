@@ -41,8 +41,8 @@ export default function LandingPage({filteredLeagues, availableSeasons} : {filte
         getStandings(selectedLeague, selectedSeason);
 
         async function getFixtures(selectedLeague : LeagueResponse, selectedSeason : number){
-            const fixtureResponse : FixtureResponse[] = await fetchLastFixtures(selectedLeague, selectedSeason);
-            setFixtures(fixtureResponse);
+            const fixtures : FixtureResponse[] = await fetchLastFixtures(selectedLeague, selectedSeason);
+            setFixtures(fixtures)
         }
         
         getFixtures(selectedLeague, selectedSeason);
