@@ -9,7 +9,6 @@ export default async function fetchLastFixtures(selectedLeague : LeagueResponse 
 
     
     const last10Matches : string = last ? `league=${selectedLeague?.league.id}&season=${season}&last=${last}` : `league=${selectedLeague?.league.id}&season=${season}`;
-    const next10Matches : string = last ? `league=${selectedLeague?.league.id}&season=${season}&last=${last}` : `league=${selectedLeague?.league.id}&season=${season}&next=10`;
     
 
     try{
@@ -19,7 +18,22 @@ export default async function fetchLastFixtures(selectedLeague : LeagueResponse 
         })
 
         const result = await response.json();
-        console.log(result.response, "these are the fixtures");
+        const fixtures  : FixtureResponse[] = result.response;
+
+        fixtures.map(item => {
+            const string_from_api = item.fixture.date;
+            const date = new Date(string_from_api);
+            const losAngelesTime = date.toLocaleString('en-US', {
+            timeZone: 'America/Los_Angeles',
+            dateStyle : 'short',
+            timeStyle : 'short'
+            });
+
+            item.fixture.date = losAngelesTime;
+            console.log(item.fixture.date);
+
+        });
+
         return result.response;
     }
     catch (error){console.log(error)}

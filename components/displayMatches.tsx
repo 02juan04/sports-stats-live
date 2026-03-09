@@ -1,12 +1,14 @@
 import { LeagueResponse } from "@/types/leagueResponse";
 import { FixtureResponse } from "@/types/fixturesResponse";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 interface props{
     league : LeagueResponse | null,
     fixtures : FixtureResponse[] | null,
 }
 export default function DisplayMatches({league, fixtures} : props){
+    const [matchStatus, setMatchStatus] = useState<"scheduled" | "inPlay" | "finished">("scheduled");
+
     const inPlay = ["HT", "1H", "2H", "ET", "BT", "P", "SUSP", "INT", "LIVE"];
     const scheduled = ["TBD", "NS"];
     const finished = ["FT", "AET", "PEN"];
@@ -44,33 +46,32 @@ export default function DisplayMatches({league, fixtures} : props){
         inPlay : [],
         finished : []
     });   
+
+    matches?.finished.sort((a,b) => b.fixture.date.localeCompare(a.fixture.date));
     
-    const [matchStatus, setMatchStatus] = useState<"scheduled" | "inPlay" | "finished">("scheduled");
 
 
 
 return (
     <div id="matches-section" className="lg:flex lg:flex-col lg:items-center lg:col-span-4">
-        <h2 id="matches-section-header" className=" mt-20 lg:mt-0 bg-[var(--dashboard-card-headers)] shadow-md mb-10 lg:mb-20  w-full text-center py-3 px-5 rounded-lg text-[1.2rem] xl:text-[1.8rem] tracking-wider gap-3 main-title">
+        <h2 id="matches-section-header" className=" mt-20 lg:mt-0 bg-[var(--dashboard-card-headers)] shadow-md mb-10 lg:mb-10  w-full text-center py-3 px-5 rounded-lg text-[1.2rem] xl:text-[1.8rem] tracking-wider gap-3 main-title">
         {league?.league.name} Matches
         </h2>
-
-        <button type="button" onClick={() => setMatchStatus("finished")}>Past Matches</button>
-        <button type="button" onClick={() => setMatchStatus("scheduled")}>Upcoming Matches</button>
-        <button type="button" onClick={() => setMatchStatus("inPlay")}>Live Matches</button>
+        <div id="status-buttons" className="flex flex-row w-full justify-evenly mb-5">
+            <MatchStatusButton text="Past Matches" setMatchStatus={() => setMatchStatus("finished")} active={matchStatus === "finished"}></MatchStatusButton>
+            <MatchStatusButton text="Upcoming Matches" setMatchStatus={() => setMatchStatus("scheduled")}  active={matchStatus === "scheduled"}></MatchStatusButton>
+            <MatchStatusButton text="Live Matches" setMatchStatus={() => setMatchStatus("inPlay")}  active={matchStatus === "inPlay"}></MatchStatusButton>
+        </div>
 
         <div id="match-cards-container" className="rounded-lg w-full h-380">
         {matches?.[matchStatus].map((item, index) => {
-            
+
         return (
             <div key={index} className={`match-card bg-[var(--dashboard-card-color)] dashboard-card selectable w-full flex relative flex-col items-center rounded-xl shadow-lg pb-5 mb-3 z-1 hover:scale-103 hover:bg-gray-700 duration-200 "text-green-400" : ""}`}>
                 <div className="match-card-header flex flex-col pl-5 pr-5 pb-0 w-full tracking-widest secondary-title">
-                    <div className="m-auto pt-4">{item.fixture.date.split("T").at(0)}</div>
-                    <div className="flex justify-between">
-                        <div className="match-status text-sm text-center inline">{item.fixture.status.long}</div>
-                        <div className="match-time p-1 text-center">{item.fixture.status.elapsed}{item.fixture.status.extra
-                                ? <span>+{item.fixture.status.extra}&apos;</span> : "'"}
-                        </div>
+                    <div className="m-auto pt-4 w-full flex justify-between">
+                        <p>{item.fixture.date.split(",").at(0)}</p>
+                        <p>{item.fixture.date.split(",").at(1)}</p>
                     </div>
                 </div>
                 <div className="match-card-team-section tracking-widest text-lg w-full p-5 pt-0 relative main-title">
@@ -100,10 +101,25 @@ return (
                 <div className="score-section text-lg">
                     {item.goals.home} - {item.goals.away}
                 </div>
+                                    <div className="flex justify-between my-2">
+                        <div className="match-status text-sm text-center inline">{matchStatus === "inPlay" ? item.fixture.status.long : item.fixture.status.short}</div>
+                        <div className="match-time text-center">{item.fixture.status.elapsed}{item.fixture.status.extra ? <span>+{item.fixture.status.extra}&apos;</span> : `'`}
+                        </div>
+                    </div>
             </div>
             );
         })}
         </div>
     </div>
     );
+}
+
+function MatchStatusButton({text, setMatchStatus, active} : {text : string, setMatchStatus : ()=>void, active:boolean}){
+    return(
+        <button onClick={setMatchStatus} className={`${active ?  'bg-[var(--selectable-hover-color)] scale-105 ring-2 ring-indigo-600' : 'bg-[var(--dashboard-buttons)]'}
+                                                    text-center text-xs py-[1em] px-[0.75em] lg:text-md lg:py-[0.75em] lg:px-[1em] rounded-full cursor-pointer hover:bg-[var(--selectable-hover-color)] 
+                                                    hover:scale-105 ring-none transition duration-200`}>
+            {text}
+        </button>
+    )
 }

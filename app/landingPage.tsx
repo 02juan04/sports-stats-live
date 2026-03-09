@@ -53,8 +53,8 @@ export default function LandingPage({filteredLeagues, availableSeasons} : {filte
 
 
     function handleSelectLeague(item : LeagueResponse){
+        //when the user clicks on a league, set the season to the season marked current
         item.seasons.forEach(season => season.current ? setSeason(season.year) : item);
-
         setLeague(item);
     }
     

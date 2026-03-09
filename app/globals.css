@@ -7,6 +7,7 @@
   --main-information : black;
   --secondary-information : rgb(123, 123, 123);
   --selectable-hover-color : rgb(219, 219, 222);
+  --dashboard-buttons : rgb(219, 219, 222);
 }
 
 /* @theme inline {
@@ -27,6 +28,7 @@
   --main-information : rgb(255, 250, 250);
   --secondary-information : rgb(178, 177, 177);
   --selectable-hover-color : rgb(90, 108, 129);
+  --dashboard-buttons : #605d7a;
   }
 }
 
