@@ -74,38 +74,36 @@ return (
                         <p>{item.fixture.date.split(",").at(1)}</p>
                     </div>
                 </div>
-                <div className="match-card-team-section tracking-widest text-lg w-full p-5 pt-0 relative main-title">
-                    <div className="team-logo-container absolute left-10 lg:left-6 2xl:left-25 xl:left-15 -z-1 md:left-50 sm:left-40 w-20 h-20">
-                    <Image
-                        src={item.teams.home.logo}
-                        alt={`${item.teams.home.name} logo`}
-                        fill
-                        className="opacity-30 lg:opacity-70 object-contain"
-                    />
-                </div>
-                <h3 className="teams-versus text-center">
-                    {item.teams.home.name}
-                    <span className="tracking-wide text-sm block"> VS </span>
-                    {item.teams.away.name}
-                </h3>
-                <div className="team-logo-container absolute top-0 right-10 lg:right-6 2xl:right-25 xl:right-15 -z-1 md:right-50 sm:right-40 w-20 h-20">
-                    <Image
-                    src={item.teams.away.logo}
-                    alt={`${item.teams.away.name} logo`}
-                    fill
-                    className="opacity-30 lg:opacity-70"
-                    />
-                </div>
-                </div>
-
-                <div className="score-section text-lg">
-                    {item.goals.home} - {item.goals.away}
-                </div>
-                                    <div className="flex justify-between my-2">
-                        <div className="match-status text-sm text-center inline">{matchStatus === "inPlay" ? item.fixture.status.long : item.fixture.status.short}</div>
-                        <div className="match-time text-center">{item.fixture.status.elapsed}{item.fixture.status.extra ? <span>+{item.fixture.status.extra}&apos;</span> : `'`}
-                        </div>
+                <div className="match-card-team-section tracking-widest text-lg w-full p-5 pt-0 relative main-title  text-center">
+                    <div className="team-logo-container absolute left-10 lg:left-6 2xl:left-15 xl:left-15 -z-1 md:left-50 sm:left-40 w-20 h-20">
+                        <Image
+                            src={item.teams.home.logo}
+                            alt={`${item.teams.home.name} logo`}
+                            fill
+                            className="opacity-30 lg:opacity-70 object-contain"
+                        />
                     </div>
+                    <h3 className="teams-versus">
+                        {item.teams.home.name}
+                        <span className="tracking-wide text-xs block"> VS </span>
+                        {item.teams.away.name}
+                    </h3>
+                    <div className="team-logo-container absolute top-0 right-10 lg:right-6 2xl:right-15 xl:right-15 -z-1 md:right-50 sm:right-40 w-20 h-20">
+                        <Image
+                        src={item.teams.away.logo}
+                        alt={`${item.teams.away.name} logo`}
+                        fill
+                        className="opacity-30 lg:opacity-70"
+                        />
+                    </div>
+                </div>
+                { matchStatus !== "scheduled" &&
+                <div className="match-stats flex flex-row justify-evenly w-full">
+                    <div className="match-status flex items-center">{matchStatus === "inPlay" ? item.fixture.status.long : item.fixture.status.short}</div>
+                    <div className="match-scrore text-[2em] font-bold">{item.goals.home} - {item.goals.away}</div>
+                    <div className="match-time flex items-center">{item.fixture.status.elapsed}{item.fixture.status.extra ? <span>+{item.fixture.status.extra}&apos;</span> : `'`}</div>
+                </div>
+                }
             </div>
             );
         })}
@@ -117,7 +115,7 @@ return (
 function MatchStatusButton({text, setMatchStatus, active} : {text : string, setMatchStatus : ()=>void, active:boolean}){
     return(
         <button onClick={setMatchStatus} className={`${active ?  'bg-[var(--selectable-hover-color)] scale-105 ring-2 ring-indigo-600' : 'bg-[var(--dashboard-buttons)]'}
-                                                    text-center text-xs py-[1em] px-[0.75em] lg:text-md lg:py-[0.75em] lg:px-[1em] rounded-full cursor-pointer hover:bg-[var(--selectable-hover-color)] 
+                                                    text-center text-xs py-[1em] px-[0.75em] lg:text-sm lg:py-[0.75em] lg:px-[1em] rounded-full cursor-pointer hover:bg-[var(--selectable-hover-color)] 
                                                     hover:scale-105 ring-none transition duration-200`}>
             {text}
         </button>
