@@ -6,8 +6,11 @@ interface props{
     league : LeagueResponse | null,
     fixtures : FixtureResponse[] | null,
 }
+
+
+//TODO Work on pagination for matches. limit 10 per 'page'
 export default function DisplayMatches({league, fixtures} : props){
-    const [matchStatus, setMatchStatus] = useState<"scheduled" | "inPlay" | "finished">("scheduled");
+    const [matchStatus, setMatchStatus] = useState<"scheduled" | "inPlay" | "finished">("finished");
 
     const inPlay = ["HT", "1H", "2H", "ET", "BT", "P", "SUSP", "INT", "LIVE"];
     const scheduled = ["TBD", "NS"];
@@ -31,10 +34,7 @@ export default function DisplayMatches({league, fixtures} : props){
         finished : FixtureResponse[]
     }
 
-    const sortedFixtures = fixtures?.sort((a,b) => a.fixture.date.localeCompare(b.fixture.date));
-    console.log(sortedFixtures);
-
-    const matches = sortedFixtures?.reduce<MatchStatus>((acc, curr) => {
+    const matches = fixtures?.reduce<MatchStatus>((acc, curr) => {
 
         if (isScheduled(curr)) acc.scheduled.push(curr);
         if (isInPlay(curr)) acc.inPlay.push(curr);
@@ -45,10 +45,15 @@ export default function DisplayMatches({league, fixtures} : props){
         scheduled : [],
         inPlay : [],
         finished : []
-    });   
+    });       
 
-    matches?.finished.sort((a,b) => b.fixture.date.localeCompare(a.fixture.date));
-    
+    //sorting past matches for proper display (grab the latest date first)
+    matches?.finished.sort((a,b) => {
+        const aDate = new Date(a.fixture.date).getTime();
+        const bDate = new Date(b.fixture.date).getTime();
+        return  bDate - aDate;
+    });
+
 
 
 
@@ -74,7 +79,7 @@ return (
                         <p>{item.fixture.date.split(",").at(1)}</p>
                     </div>
                 </div>
-                <div className="match-card-team-section tracking-widest text-lg w-full p-5 pt-0 relative main-title  text-center">
+                <div className="match-card-team-section tracking-widest text-lg w-full mb-5 relative main-title text-center">
                     <div className="team-logo-container absolute left-10 lg:left-6 2xl:left-15 xl:left-15 -z-1 md:left-50 sm:left-40 w-20 h-20">
                         <Image
                             src={item.teams.home.logo}
@@ -83,9 +88,9 @@ return (
                             className="opacity-30 lg:opacity-70 object-contain"
                         />
                     </div>
-                    <h3 className="teams-versus">
+                    <h3 className="teams-versus w-fit m-auto flex flex-col justify-evenly">
                         {item.teams.home.name}
-                        <span className="tracking-wide text-xs block"> VS </span>
+                        <span className="tracking-widest text-xs"> VS </span>
                         {item.teams.away.name}
                     </h3>
                     <div className="team-logo-container absolute top-0 right-10 lg:right-6 2xl:right-15 xl:right-15 -z-1 md:right-50 sm:right-40 w-20 h-20">

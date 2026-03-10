@@ -44,7 +44,7 @@ export default  function DisplayLeagues({ leagues, selectedLeague, handleSelecte
                                     <div className={`-z-1 lg:-z-1 absolute w-10 h-10 top-0 h-full left-5 ${selectedLeague ? ''  : 'left-10'}`}>
                                         <Image src={item.league.logo} alt={`${item.league.name} logo`} fill className="object-contain"></Image>
                                     </div>
-                                    <h3 className="text-lg main-title ml-10">{item.league.name}</h3>
+                                    <h3 className="text-lg main-title m-auto w-2/3">{item.league.name}</h3>
                                 </div>
                             </Fragment>
                            ))
