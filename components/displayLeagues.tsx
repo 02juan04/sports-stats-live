@@ -37,15 +37,14 @@ export default  function DisplayLeagues({ leagues, selectedLeague, handleSelecte
                         {
                            item.leagues?.map(item => (
                             <Fragment key={item.league.id}>
-                                <div
-                                    className={`league-card selectable dashboard-card bg-[var(--dashboard-card-color)] my-3
+                                <div className={`league-card z-2 selectable dashboard-card bg-[var(--dashboard-card-color)] my-3
                                         text-center p-5 relative cursor-pointer tracking-wider shadow-lg rounded-lg  duration-150
                                         ${selectedLeague?.league.id === item.league.id ? "ring ring-indigo-600 scale-105 bg-gray-600" : "hover:scale-105 hover:bg-gray-700"}`}
                                         onClick={() => {handleSelectedLeague(item);}}>
-                                <div className={`-z-1 lg:z-1 absolute w-10 h-10 ${selectedLeague ? ''  : 'left-10'}`}>
-                                    <Image src={item.league.logo} alt={`${item.league.name} logo`} fill className="object-contain"></Image>
-                                </div>
-                                    <h3 className="text-xl main-title">{item.league.name}</h3>
+                                    <div className={`-z-1 lg:-z-1 absolute w-10 h-10 top-0 h-full left-5 ${selectedLeague ? ''  : 'left-10'}`}>
+                                        <Image src={item.league.logo} alt={`${item.league.name} logo`} fill className="object-contain"></Image>
+                                    </div>
+                                    <h3 className="text-lg main-title ml-10">{item.league.name}</h3>
                                 </div>
                             </Fragment>
                            ))
