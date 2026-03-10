@@ -119,9 +119,9 @@ return (
 
 function MatchStatusButton({text, setMatchStatus, active} : {text : string, setMatchStatus : ()=>void, active:boolean}){
     return(
-        <button onClick={setMatchStatus} className={`${active ?  'bg-[var(--selectable-hover-color)] scale-105 ring-2 ring-indigo-600' : 'bg-[var(--dashboard-buttons)]'}
+        <button onClick={setMatchStatus} className={`${active ?  'bg-[var(--selectable-hover-color)] scale-110 ring-2 ring-indigo-600' : 'bg-[var(--dashboard-buttons)]'}
                                                     text-center text-xs py-[1em] px-[0.75em] lg:text-sm lg:py-[0.75em] lg:px-[1em] rounded-full cursor-pointer hover:bg-[var(--selectable-hover-color)] 
-                                                    hover:scale-105 ring-none transition duration-200`}>
+                                                    hover:scale-110 ring-none transition duration-200`}>
             {text}
         </button>
     )
